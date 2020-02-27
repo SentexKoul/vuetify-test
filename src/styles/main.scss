@@ -1,0 +1,30 @@
+.form-control {
+  &:focus {
+    box-shadow: none;
+    border-color: #000;
+  }
+}
+
+.searchbar {
+  .input-group {
+    &-text {
+      background-color: transparent;
+      border-radius: 19px 0px 0px 19px !important;
+      border: 1px solid #6c757d;
+      border-right: none;
+    }
+  
+    .form-control {
+      border-radius: 0px 19px 19px 0px;
+      border: 1px solid #6c757d;
+      border-left: none;
+  
+      &:not(textarea) {
+        height: 38px;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
