@@ -57,6 +57,10 @@ export default {
     }
   },
 
+  created() {
+    this.checkSavedSearch()
+  },
+
   methods: {
     toggleAddingForm() {
       this.showAddingForm = !this.showAddingForm
@@ -74,6 +78,11 @@ export default {
       this.newListName = null
     },
 
+    checkSavedSearch() {
+      let savedSearch = localStorage.getItem('search')
+      if (savedSearch) this.search = savedSearch
+    },
+
     sortList() {
       this.$store.commit('data/sortSelectedList')
     }
@@ -82,6 +91,7 @@ export default {
   watch: {
     search(value) {
       this.$emit('search', value)
+      localStorage.setItem('search', this.search)
     }
   }
 }
