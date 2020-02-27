@@ -58,6 +58,8 @@ export default {
 
   methods: {
     addNewProduct() {
+      if (!this.newProduct.name) return
+      
       this.$store.commit('data/addNewProduct', {...this.newProduct, bought: false})
       this.newProduct = {
         name: null,

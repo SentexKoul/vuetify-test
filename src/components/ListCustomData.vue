@@ -67,7 +67,6 @@ export default {
     },
 
     readFile(event) {
-      console.log('event :', event);
       let reader = new FileReader()
       reader.onload = this.saveJson
 
