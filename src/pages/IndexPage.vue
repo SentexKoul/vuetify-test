@@ -5,6 +5,7 @@
     <b-row v-if="lists.length" class="text-center">
       <b-col cols="4">
         <list-navigation/>
+        <list-custom-data/>
       </b-col>
       <b-col>
         <list-table :search="search"/>
@@ -21,6 +22,7 @@ import ListHeader from '@/components/ListHeader'
 import ListNavigation from '@/components/ListNavigation'
 import ListTable from '@/components/ListTable'
 import ListTableControls from '@/components/ListTableControls'
+import ListCustomData from '@/components/ListCustomData'
 import {mapState} from 'vuex'
 
 export default {
@@ -30,7 +32,8 @@ export default {
     ListHeader,
     ListNavigation,
     ListTable,
-    ListTableControls
+    ListTableControls,
+    ListCustomData
   },
 
   data() {
