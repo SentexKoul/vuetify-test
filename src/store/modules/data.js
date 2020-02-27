@@ -1,6 +1,7 @@
 const state = {
     units: ['шт.', 'кг.', 'бан.', 'л.'],
     selectedListIndex: 0,
+    sortingOrder: 'AZ',
     lists: [
         {
             name: 'Первый',
@@ -110,19 +111,17 @@ const mutations = {
     },
 
     sortSelectedList(state) {
-        const index  = state.selectedListIndex
+        const index = state.selectedListIndex
         let products = state.lists[index].products
-        let order    = state.sortingOrder
-        
-        // не работет из-за того что значения нет в LocalStorage
-        if (!order) order = 'AZ'
 
-        if (order == 'AZ') {
+        if (!state.sortingOrder) state.sortingOrder = 'AZ'
+
+        if (state.sortingOrder == 'AZ') {
             products.sort((a,b) => (a.name < b.name) ? 1 : ((b.name < a.name) ? -1 : 0))
-            order = 'ZA'
+            state.sortingOrder = 'ZA'
         } else {
             products.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
-            order = 'AZ'
+            state.sortingOrder = 'AZ'
         }
     },
 }
