@@ -1,6 +1,10 @@
 <template>
   <div class="test">
-    <p>TEST TEST TEST</p>
+    <v-app>
+      <v-content>
+        <v-container>Hello world</v-container>
+      </v-content>
+    </v-app>
   </div>
 </template>
 
