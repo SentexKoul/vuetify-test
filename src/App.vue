@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <router-view/>
+    <shopping-list/>
   </div>
 </template>
 
 <script>
+import ShoppingList from './components/ShoppingList'
+
 export default {
   name: 'App',
 
-  beforeCreate() {
-		this.$store.commit('data/setStore');
-	}
+  components: {
+    ShoppingList
+  }
 }
 </script>
 
