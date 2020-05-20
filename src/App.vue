@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <shopping-list/>
+    <base-shopping-list/>
   </div>
 </template>
 
 <script>
-import ShoppingList from './components/ShoppingList'
+import BaseShoppingList from './components/BaseShoppingList'
 
 export default {
   name: 'App',
 
   components: {
-    ShoppingList
+    BaseShoppingList
   }
 }
 </script>
@@ -22,6 +22,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
