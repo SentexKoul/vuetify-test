@@ -1,12 +1,18 @@
 <template>
   <v-app>
-    <v-row class="mt-5" no-gutters>
-      <v-col cols="4 mt-10 pt-10">
-        <v-tabs :vertical="true" :grow="true">
+    <v-row no-gutters>
+      <v-col cols="4">
+        <v-tabs 
+          background-color="transparent"
+          class="lists"
+          :vertical="true" 
+          :grow="true"
+          dark
+        >
           <v-tab 
             v-for="(list, i) in lists"
             @click="activeListIndex = i"
-            class="justify-end pr-10" 
+            class="justify-start mx-10" 
             :key="i"
           >
             <v-icon left>{{ list.icon }}</v-icon>
@@ -15,24 +21,45 @@
         </v-tabs>
       </v-col>
 
-
-      <v-col cols="8">
-        <v-text-field class="mb-3 mr-5" label="Поиск..." v-model="searchBar" hide-details="auto" outlined/>
+      <v-col cols="8" class="pt-5 px-4">
+        <v-text-field 
+          class="mb-3" 
+          label="Поиск..." 
+          v-model="searchBar" 
+          hide-details="auto" 
+          background-color="white" 
+          outlined
+        />
         <div class="d-flex">
-          <v-text-field class="mb-3" label="Добавить" v-model="newProduct" outlined />
-          <v-btn x-large @click="addNewProduct" class="mr-5" color="success" dark>Добавить</v-btn>
+          <v-text-field 
+            class="mb-3" 
+            label="Добавить" 
+            v-model="newProduct"
+            background-color="white"
+            outlined 
+          />
+          <v-btn x-large @click="addNewProduct" color="success" dark>Добавить</v-btn>
         </div>
 
-        <v-tabs v-if="productList.length" :vertical="true" :grow="true">
-          <v-tab 
-            v-for="(product, i) in productList" 
-            class="justify-space-between"
+        <v-list
+          v-if="productList.length"
+          dark
+        >
+          <v-list-item 
+            v-for="(product, i) in productList"
             :key="i"
           >
             {{ product }}
-            <v-btn @click="deleteProduct(product)" small color="error">Удалить</v-btn>
-          </v-tab>
-        </v-tabs>
+            <v-btn 
+              @click="deleteProduct(product)"
+              class="ml-auto"
+              color="error"
+              outlined
+              small>
+              <v-icon center>mdi-trash-can-outline</v-icon>
+            </v-btn>
+          </v-list-item>
+        </v-list>
 
         <p v-else>Список пуст</p>
       </v-col>
@@ -85,7 +112,9 @@ export default {
   methods: {
     addNewProduct() {
       const items = this.lists[this.activeListIndex].items
+      
       items.push(this.newProduct)
+      this.newProduct = null
     },
 
     deleteProduct(product) {
@@ -100,4 +129,13 @@ export default {
 </script>
 
 <style lang="scss">
+  .col-4 {
+    background: url('https://png.pngtree.com/thumb_back/fw800/back_our/20190622/ourmid/pngtree-creative-food-festival-food-background-material-image_206773.jpg') center center no-repeat;
+    background-size: cover;
+
+    .lists {
+      margin-top: 250px;
+      padding: 0 100px;
+    }
+  }
 </style>
