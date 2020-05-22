@@ -1,21 +1,23 @@
 <template>
-    <v-tabs 
-        background-color="transparent"
-        class="lists"
-        :vertical="true" 
-        :grow="true"
-        dark
-    >
-        <v-tab 
-            v-for="(list, i) in lists"
-            @click="selectList(i)"
-            class="justify-start mx-10" 
-            :key="i"
+    <v-col cols="4">
+        <v-tabs 
+            background-color="transparent"
+            class="lists"
+            :vertical="true" 
+            :grow="true"
+            dark
         >
-            <v-icon left>{{ list.icon }}</v-icon>
-            {{ list.name }}
-        </v-tab>
-    </v-tabs>
+            <v-tab 
+                v-for="(list, i) in lists"
+                @click="selectList(i)"
+                class="justify-start mx-10" 
+                :key="i"
+            >
+                <v-icon left>{{ list.icon }}</v-icon>
+                {{ list.name }}
+            </v-tab>
+        </v-tabs>
+    </v-col>
 </template>
 
 <script>
