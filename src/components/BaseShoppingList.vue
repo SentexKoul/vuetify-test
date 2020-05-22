@@ -1,19 +1,19 @@
 <template>
   <v-app>
     <v-row no-gutters>
-      <shoppeng-list-aside/>
+      <shopping-list-aside/>
       <shopping-list-content/>
     </v-row>
   </v-app>
 </template>
 
 <script>
-import ShoppengListAside from './ShoppengListAside'
+import ShoppingListAside from './ShoppingListAside'
 import ShoppingListContent from './ShoppingListContent'
 
 export default {
   components: {
-    ShoppengListAside,
+    ShoppingListAside,
     ShoppingListContent
   },
 }
