@@ -25,17 +25,41 @@
     >
       <v-list-item 
         v-for="(product, i) in productList"
+        :class="{'bought': product.bought}"
         :key="i"
       >
-        {{ product }}
-        <v-btn 
-          @click="deleteProduct(product)"
-          class="ml-auto"
-          color="error"
-          outlined
-          small>
-          <v-icon center>mdi-trash-can-outline</v-icon>
-        </v-btn>
+        <p class="mb-0">{{ product.name }}</p>
+        
+        <div class="ml-auto d-flex">
+          <v-btn 
+            @click="toggleProductBoughtStatus(product.name)"
+            class="mr-2"
+            :color="getButtonColor(product.bought)"
+            outlined
+            small>
+            <v-icon center>
+              <template v-if="product.bought">mdi-cart-arrow-up</template>
+              <template v-else>mdi-cart-arrow-down</template>
+            </v-icon>
+          </v-btn>
+
+          <v-btn 
+            @click="editProduct(product.name, i)"
+            color="primary"
+            class="mr-2"
+            outlined
+            small>
+            <v-icon center>mdi-cog-refresh</v-icon>
+          </v-btn>
+
+          <v-btn 
+            @click="deleteProduct(product.name)"
+            color="error"
+            outlined
+            small>
+            <v-icon center>mdi-trash-can-outline</v-icon>
+          </v-btn>
+        </div>
       </v-list-item>
     </v-list>
 
@@ -59,7 +83,7 @@ export default {
 
     productList() {
       const items = this.getSelectedList.items
-      return items.filter(i => i.toLowerCase().includes(this.searchBar.toLowerCase()))
+      return items.filter(i => i.name.toLowerCase().includes(this.searchBar.toLowerCase()))
     }
   },
 
@@ -68,9 +92,27 @@ export default {
       this.$store.commit('data/addNewProduct', this.newProduct)
     },
 
-    deleteProduct(product) {
-      this.$store.commit('data/deleteProduct', product)
+    deleteProduct(name) {
+      this.$store.commit('data/deleteProduct', name)
     },
+
+    toggleProductBoughtStatus(name) {
+      this.$store.commit('data/toggleProductBoughtStatus', name)
+    },
+
+    editProduct() {
+      // this.$store.commit('data/editProduct', {name: name, index: index})
+    },
+
+    getButtonColor(isBought) {
+      return isBought ? 'warning' : 'success'
+    }
   }
 }
 </script>
+
+<style lang="scss">
+  .bought {
+    opacity: .35;
+  }
+</style>

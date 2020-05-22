@@ -4,25 +4,27 @@ const state = {
         name:'Еда',
         icon: 'mdi-silverware-variant',
         items: [
-            'Грибы',
-            'Бананы',
-            'Макароны'
+            {name: 'Грибы', bought: false},
+            {name: 'Бананы', bought: false},
+            {name: 'Макароны', bought: false},
         ]
     },{
         name:'Хоз. товары',
         icon: 'mdi-chemical-weapon',
+        bought: false,
         items: [
-            'Мыло',
-            'Шампунь',
-            'Туалетная бумага'
+            {name: 'Мыло', bought: false},
+            {name: 'Шампунь', bought: false},
+            {name: 'Туалетная бумага', bought: false},
         ]
     },{
         name:'Напитки',
         icon: 'mdi-cup',
+        bought: false,
         items: [
-            'Сок',
-            'Кола',
-            'Энергетик',
+            {name: 'Сок', bought: false},
+            {name: 'Кола', bought: false},
+            {name: 'Энергетик', bought: false},
         ]
     }]
 };
@@ -51,17 +53,32 @@ const mutations = {
         state.selectedListIndex = payload
     },
 
+    toggleProductBoughtStatus(state, payload) {
+        const index           = state.selectedListIndex
+        const items           = state.lists[index].items
+        const selectedProduct = items.find(i => i.name == payload)
+
+        selectedProduct.bought = !selectedProduct.bought
+    },
+
     addNewProduct(state, payload) {
         const index = state.selectedListIndex
         const items = state.lists[index].items
 
-        items.push(payload)
+        items.push({name: payload, bought: false})
+    },
+
+    editProduct(state, payload) {
+        const listIndex = state.selectedListIndex
+        const items = state.lists[listIndex].items
+
+        items[payload.index].name = payload.data
     },
 
     deleteProduct(state, payload) {
         const listIndex       = state.selectedListIndex
         const items           = state.lists[listIndex].items
-        const selectedProduct = items.find(i => i == payload)
+        const selectedProduct = items.find(i => i.name == payload)
         const productIndex    = items.indexOf(selectedProduct)
 
         items.splice(productIndex, 1)
