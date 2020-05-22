@@ -2,23 +2,7 @@
   <v-app>
     <v-row no-gutters>
       <v-col cols="4">
-        <v-tabs 
-          background-color="transparent"
-          class="lists"
-          :vertical="true" 
-          :grow="true"
-          dark
-        >
-          <v-tab 
-            v-for="(list, i) in lists"
-            @click="activeListIndex = i"
-            class="justify-start mx-10" 
-            :key="i"
-          >
-            <v-icon left>{{ list.icon }}</v-icon>
-            {{ list.name }}
-          </v-tab>
-        </v-tabs>
+        <shoppeng-list-aside/>
       </v-col>
 
       <v-col cols="8" class="pt-5 px-4">
@@ -68,61 +52,37 @@
 </template>
 
 <script>
+import ShoppengListAside from './ShoppengListAside'
+import { mapGetters } from 'vuex';
+
 export default {
+  components: {
+    ShoppengListAside
+  },
+
   data() {
     return {
-      activeListIndex: 0,
       newProduct: null,
       searchBar: '',
-      lists: [{
-        name:'Еда',
-        icon: 'mdi-silverware-variant',
-        items: [
-          'Грибы',
-          'Бананы',
-          'Макароны'
-        ]
-      },{
-        name:'Хоз. товары',
-        icon: 'mdi-chemical-weapon',
-        items: [
-          'Мыло',
-          'Шампунь',
-          'Туалетная бумага'
-        ]
-      },{
-        name:'Напитки',
-        icon: 'mdi-cup',
-        items: [
-          'Сок',
-          'Кола',
-          'Энергетик',
-        ]
-      }]
     }
   },
 
   computed: {
+    ...mapGetters('data', ['getSelectedList', 'selectedListIndex']),
+
     productList() {
-      const items = this.lists[this.activeListIndex].items
+      const items = this.getSelectedList.items
       return items.filter(i => i.toLowerCase().includes(this.searchBar.toLowerCase()))
     }
   },
 
   methods: {
     addNewProduct() {
-      const items = this.lists[this.activeListIndex].items
-      
-      items.push(this.newProduct)
-      this.newProduct = null
+      this.$store.commit('data/addNewProduct', this.newProduct)
     },
 
     deleteProduct(product) {
-      const items           = this.lists[this.activeListIndex].items
-      const selectedProduct = items.find(i => i == product)
-      const productIndex    = items.indexOf(selectedProduct)
-
-      items.splice(productIndex, 1)
+      this.$store.commit('data/deleteProduct', product)
     },
   }
 }
