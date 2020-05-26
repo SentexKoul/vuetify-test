@@ -72,7 +72,7 @@ const mutations = {
         const listIndex = state.selectedListIndex
         const items = state.lists[listIndex].items
 
-        items[payload.index].name = payload.data
+        items[payload.index].name = payload.name
     },
 
     deleteProduct(state, payload) {

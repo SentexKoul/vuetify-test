@@ -5,14 +5,18 @@
 </template>
 
 <script>
-import BaseShoppingList from './components/BaseShoppingList'
+import BaseShoppingList from './layouts/BaseShoppingList'
 
 export default {
   name: 'App',
 
   components: {
     BaseShoppingList
-  }
+  },
+
+  beforeCreate() {
+		this.$store.commit('data/setStore');
+	}
 }
 </script>
 

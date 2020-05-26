@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import ShoppingListAside from './ShoppingListAside'
-import ShoppingListContent from './ShoppingListContent'
+import ShoppingListAside from '../components/ShoppingListAside'
+import ShoppingListContent from '../components/ShoppingListContent'
 
 export default {
   components: {

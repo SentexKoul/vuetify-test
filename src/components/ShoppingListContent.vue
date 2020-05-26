@@ -10,8 +10,9 @@
     />
     <div class="d-flex">
       <v-text-field 
-        class="mb-3" 
-        label="Добавить" 
+        class="mb-3"
+        color="blue"
+        label="Добавить"
         v-model="newProduct"
         background-color="white"
         outlined 
@@ -28,7 +29,18 @@
         :class="{'bought': product.bought}"
         :key="i"
       >
-        <p class="mb-0">{{ product.name }}</p>
+        <v-text-field 
+          v-if="editedProductIndex == i" 
+          v-model="editedProductData"
+          @keyup.enter="saveNewProductData"
+          :label="product.name"
+          class="mb-0 mr-2"
+          background-color="transparent"
+          color="#fff"
+          hide-details
+          outlined 
+        />
+        <p v-else class="mb-0">{{ product.name }}</p>
         
         <div class="ml-auto d-flex">
           <v-btn 
@@ -44,12 +56,18 @@
           </v-btn>
 
           <v-btn 
-            @click="editProduct(product.name, i)"
             color="primary"
             class="mr-2"
             outlined
             small>
-            <v-icon center>mdi-cog-refresh</v-icon>
+            <v-icon 
+              v-if="editedProductIndex == i"
+              @click="saveNewProductData" 
+              center>mdi-content-save</v-icon>
+            <v-icon 
+              v-else
+              @click="editedProductIndex = i" 
+              center>mdi-cog-refresh</v-icon>
           </v-btn>
 
           <v-btn 
@@ -68,13 +86,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
       newProduct: null,
       searchBar: '',
+      editedProductIndex: null,
+      editedProductData: null
     }
   },
 
@@ -100,8 +120,10 @@ export default {
       this.$store.commit('data/toggleProductBoughtStatus', name)
     },
 
-    editProduct() {
-      // this.$store.commit('data/editProduct', {name: name, index: index})
+    saveNewProductData() {
+      this.$store.commit('data/editProduct', {name: this.editedProductData, index: this.editedProductIndex})
+      this.editedProductIndex = null,
+      this.editedProductData = null
     },
 
     getButtonColor(isBought) {
