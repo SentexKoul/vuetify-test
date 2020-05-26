@@ -11,7 +11,6 @@ const state = {
     },{
         name:'Хоз. товары',
         icon: 'mdi-chemical-weapon',
-        bought: false,
         items: [
             {name: 'Мыло', bought: false},
             {name: 'Шампунь', bought: false},
@@ -20,7 +19,6 @@ const state = {
     },{
         name:'Напитки',
         icon: 'mdi-cup',
-        bought: false,
         items: [
             {name: 'Сок', bought: false},
             {name: 'Кола', bought: false},
